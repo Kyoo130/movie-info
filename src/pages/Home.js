@@ -9,6 +9,11 @@ const Home = () => {
   const { popularMovies, topRatedMovies, upComingMovies, loading } =
     useSelector((state) => state.movie);
 
+  const randomBanner = () => {
+    const randomNum = Math.floor(Math.random() * 10);
+    return Number(randomNum);
+  };
+
   useEffect(() => {
     dispatch(movieAction.getMovies());
   }, []);
@@ -19,7 +24,7 @@ const Home = () => {
 
   return (
     <div>
-      <Banner movie={popularMovies.results[3]} />
+      <Banner movie={popularMovies.results[randomBanner()]} />
       <h1>Popular Movies</h1>
       <MovieSlide movies={popularMovies} />
       <h1>Top Rated Movies</h1>
