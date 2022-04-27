@@ -9,8 +9,12 @@
 ### 💻 사용 기술
 + React
 + react-bootstrap
-+ react-router-rom
-+ redux, react-Redux, redux-thunk
++ react-router-dom
++ redux, react-Redux
++ redux-thunk
++ redux-devtools-extension
++ axios
++ react-multi-carousel
 
 <br/>
 
