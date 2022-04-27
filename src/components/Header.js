@@ -1,34 +1,30 @@
-import React from "react";
+import React, {useState} from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 
 const Header = () => {
+  const [menu, setMenu] = useState([
+    {id: 1, name: "홈", link: "/"},
+    {id: 2, name: "검색", link: "/movies"},
+    {id: 3, name: "영화", link: "/movies"},
+    {id: 4, name: "관심 콘텐츠", link: "/"},
+  ]);
+
   return (
     <HeaderCont>
       <h1>
         <img width={130} src={"/images/title_logo.png"} alt="logo" />
       </h1>
       <Menu>
-        <MenuItem>
-          <MenuLink className="nav-item" to="/">
-            홈
-          </MenuLink>
-        </MenuItem>
-        <MenuItem>
-          <MenuLink className="nav-item" to="/movies">
-            검색
-          </MenuLink>
-        </MenuItem>
-        <MenuItem>
-          <MenuLink className="nav-item" to="/movies">
-            영화
-          </MenuLink>
-        </MenuItem>
-        <MenuItem>
-          <MenuLink className="nav-item" to="/">
-            관심 콘텐츠
-          </MenuLink>
-        </MenuItem>
+        {
+          menu.map((item) => (
+            <MenuItem key={item.id}>
+              <MenuLink className="nav-item" to={item.link}>
+                {item.name}
+              </MenuLink>
+            </MenuItem>
+          ))
+        }
       </Menu>
     </HeaderCont>
   );
