@@ -1,6 +1,6 @@
-import Navigation from "./Navigation";
 import Banner from "./Banner";
 import MovieSlide from "./MovieSlide";
 import MovieCard from "./MovieCard";
+import Header from "./Header";
 
-export { Navigation, Banner, MovieSlide, MovieCard };
+export { Banner, MovieSlide, MovieCard, Header };
