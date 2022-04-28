@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { movieAction } from "../redux/actions/movieAction";
 import { Banner, MovieSlide } from "../components";
 import ClipLoader from "react-spinners/ClipLoader";
+import styled from "styled-components";
 
 const Home = () => {
   const dispatch = useDispatch();
@@ -19,20 +20,46 @@ const Home = () => {
   }, []);
 
   if (loading) {
-    return <ClipLoader color="#fff" loading={loading} size={150} />;
+    return (
+      <LoadingCont>
+        <ClipLoader color="#fff" loading={loading} size={150} />
+      </LoadingCont>
+    );
   }
 
   return (
     <div>
       <Banner movie={popularMovies.results[randomBanner()]} />
-      <h1>Popular Movies</h1>
-      <MovieSlide movies={popularMovies} />
-      <h1>Top Rated Movies</h1>
-      <MovieSlide movies={topRatedMovies} />
-      <h1>Upcoming Movies</h1>
-      <MovieSlide movies={upComingMovies} />
+      <MovieList>
+        <Title>인기있는 영화</Title>
+        <MovieSlide movies={popularMovies} />
+      </MovieList>
+      <MovieList>
+        <Title>개봉 예정 영화</Title>
+        <MovieSlide movies={upComingMovies} />
+      </MovieList>
+      <MovieList>
+        <Title>높은 평점 영화</Title>
+        <MovieSlide movies={topRatedMovies} />
+      </MovieList>
     </div>
   );
 };
+
+const MovieList = styled.div`
+  margin: 4rem 0;
+`;
+
+const Title = styled.h2`
+  margin: 0.8rem 0.2rem;
+  font-weight: bold;
+`;
+
+const LoadingCont = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 50vh;
+`
 
 export default Home;
