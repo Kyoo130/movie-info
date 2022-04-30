@@ -55,6 +55,13 @@ button {
 }
 
 .App {
+  display: flex;
+  flex-direction: column;
   max-width: 1240px;
+  height: 100vh;
   margin: auto;
+}
+
+.main {
+  flex: 1;
 }
