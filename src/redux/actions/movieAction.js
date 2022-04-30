@@ -42,4 +42,24 @@ function getMovies() {
   };
 }
 
-export const movieAction = { getMovies };
+function getDetails(id) {
+  return async (dispatch) => {
+    if (id) {
+      dispatch({ type: "GET_MOVIES_REQUEST" });
+      const detailMovieApi = await api.get(
+        `movie/${id}?api_key=${API_KEY}&language=ko-KR`
+      );
+
+      dispatch({
+        type: "GET_DETAILS_SUCCESS",
+        payload: {
+          detailMovies: detailMovieApi.data,
+        },
+      });
+    } else {
+      dispatch({ type: "GET_MOVIES_FAILURE" });
+    }
+  };
+}
+
+export const movieAction = { getMovies, getDetails };
