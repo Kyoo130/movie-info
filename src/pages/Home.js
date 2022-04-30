@@ -1,8 +1,7 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { movieAction } from "../redux/actions/movieAction";
-import { Banner, MovieSlide } from "../components";
-import ClipLoader from "react-spinners/ClipLoader";
+import { Banner, Loading, MovieSlide } from "../components";
 import styled from "styled-components";
 
 const Home = () => {
@@ -20,16 +19,11 @@ const Home = () => {
   }, []);
 
   if (loading) {
-    return (
-      <LoadingCont>
-        <ClipLoader color="#fff" loading={loading} size={150} />
-      </LoadingCont>
-    );
+    return <Loading />;
   }
-
   return (
     <div>
-      <Banner movie={popularMovies.results[randomBanner()]} />
+      <Banner movie={popularMovies?.results[randomBanner()]} />
       <MovieList>
         <Title>인기있는 영화</Title>
         <MovieSlide movies={popularMovies} />
@@ -54,12 +48,5 @@ const Title = styled.h2`
   margin: 0.8rem 0.2rem;
   font-weight: bold;
 `;
-
-const LoadingCont = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 50vh;
-`
 
 export default Home;

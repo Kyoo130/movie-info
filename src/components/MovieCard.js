@@ -1,12 +1,18 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import styled from "styled-components";
 
 const MovieCard = ({ item }) => {
+  const navigate = useNavigate();
   const { genreList } = useSelector((state) => state.movie);
 
   return (
-    <CardCont>
+    <CardCont
+      onClick={() => {
+        navigate(`/movies/${item.id}`);
+      }}
+    >
       <CardImg
         style={{
           backgroundImage: `url(https://www.themoviedb.org//t/p/w300_and_h450_bestv2/${item.poster_path})`,
@@ -15,8 +21,8 @@ const MovieCard = ({ item }) => {
         <CardInfo>
           <p>{item.title}</p>
           <GenreList>
-            {item.genre_ids.map((id, idx) => (
-              <div key={idx}>
+            {item.genre_ids.map((id) => (
+              <div key={id}>
                 {genreList.find((item) => item.id === id).name}
               </div>
             ))}
