@@ -1,104 +1,111 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
-import { useSelector } from "react-redux";
 import styled from "styled-components";
 
-const MovieCard = ({ item }) => {
+const MovieCard = ({ item, detail }) => {
   const navigate = useNavigate();
-  const { genreList } = useSelector((state) => state.movie);
+
+  if(detail) {
+    return (
+      <DetailCont>
+        <MovieImg
+          src={`https://www.themoviedb.org//t/p/w300_and_h450_bestv2/${item.poster_path}`}
+          alt={item.title}
+        />
+        <InfoCont>
+          <h2>{item?.title}</h2>
+          <InfoList>
+            {item.adult && item.adult ? <li>18</li> : null}
+            <li>{item.release_date}</li>
+            <li>{item.vote_average}</li>
+            {item.genres &&
+              item.genres.map((genre) => <li key={genre.id}>{genre.name}</li>)}
+            <li>{item?.runtime}</li>
+          </InfoList>
+          <MovieOverview>{item.overview}</MovieOverview>
+          <TrailerBtn>트레일러 재생</TrailerBtn>
+        </InfoCont>
+      </DetailCont>
+    )
+  }
 
   return (
-    <CardCont
+    <DivEl
       onClick={() => {
         navigate(`/movies/${item.id}`);
       }}
     >
-      <CardImg
-        style={{
-          backgroundImage: `url(https://www.themoviedb.org//t/p/w300_and_h450_bestv2/${item.poster_path})`,
-        }}
-      >
-        <CardInfo>
-          <p>{item.title}</p>
-          <GenreList>
-            {item.genre_ids.map((id) => (
-              <div key={id}>
-                {genreList.find((item) => item.id === id).name}
-              </div>
-            ))}
-          </GenreList>
-        </CardInfo>
-      </CardImg>
-    </CardCont>
+      <ImgEl
+        src={`https://www.themoviedb.org//t/p/w300_and_h450_bestv2/${item?.poster_path}`}
+        alt={item.title}
+      />
+    </DivEl>
   );
 };
 
-const CardCont = styled.div`
-  width: 98%;
-  position: relative;
-  margin: 0 auto;
-
-  :before {
-    content: "";
-    display: block;
-    padding-top: calc(450 / 300 * 100%);
-  }
-`;
-
-const CardImg = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  position: absolute;
-  left: 0;
-  top: 0;
-  bottom: 0;
-  right: 0;
-  overflow: hidden;
-  background-size: cover;
-  background-position: center;
-`;
-
-const CardInfo = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  opacity: 0;
-  background-color: rgba(43, 41, 41, 0.9);
-  width: 100%;
-  height: 100%;
-  font-size: 1.2rem;
-  transition: 0.5s;
+const DivEl = styled.div`
+  padding: 0.3em;
+  cursor: pointer;
+  transition: all 0.2s linear;
 
   :hover {
-    opacity: 1;
-    cursor: pointer;
-  }
-
-  p {
-    font-size: 1.5rem;
-    font-weight: bold;
-    color: crimson;
-    margin-bottom: 5px;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    display: -webkit-box;
-    -webkit-line-clamp: 1;
-    -webkit-box-orient: vertical;
+    border: 3px solid #fff;
+    border-radius: 0.2em;
   }
 `;
 
-const GenreList = styled.div`
-  display: flex;
-  font-size: 0.8rem;
+const ImgEl = styled.img`
+  max-width: 100%;
+  height: auto;
+`;
 
-  div {
-    padding: 5px;
-    margin: 5px;
-    border: 0.5px solid #fff;
-    border-radius: 5px;
+const DetailCont = styled.div`
+  display: flex;
+  justify-content: center;
+  margin: 5em auto;
+  padding: 0 2em;
+`;
+
+const MovieImg = styled.img`
+  max-width: 50%;
+  height: auto;
+`;
+
+const InfoCont = styled.div`
+  width: 50%;
+  padding: 1.5em;
+
+  h2 {
+    font-size: 2.5rem;
   }
+`;
+
+const InfoList = styled.ul`
+  display: flex;
+
+  li {
+    border: 1px solid #fff;
+    border-radius: 5px;
+    padding: 0.3em;
+    margin: 0.5em 0.5em 0.5em 0;
+  }
+`;
+
+const MovieOverview = styled.p`
+  margin: 1em 0;
+  padding: 1em 0;
+  border-top: 1px solid #fff;
+  border-bottom: 1px solid #fff;
+`;
+
+const TrailerBtn = styled.button`
+  background-color: red;
+  color: #fff;
+  margin: 1.5em auto;
+  padding: 1em;
+  border-radius: 5px;
+  font-weight: bold;
+  font-size: 1rem;
 `;
 
 export default MovieCard;
