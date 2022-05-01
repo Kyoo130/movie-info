@@ -2,8 +2,7 @@ import React, { useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { movieAction } from "../redux/actions/movieAction";
 import { useDispatch, useSelector } from "react-redux";
-import { Loading } from "../components";
-import MovieDetail from "../components/MovieDetail";
+import {Loading, MovieCard} from "../components";
 
 const Detail = () => {
   const dispatch = useDispatch();
@@ -16,12 +15,12 @@ const Detail = () => {
   }, []);
 
   if (loading) {
-    return <Loading />;
+    return <Loading loading={loading} />;
   }
 
   return (
     <div>
-      <MovieDetail movie={detailMovies} />
+      <MovieCard detail item={detailMovies} />
     </div>
   );
 };

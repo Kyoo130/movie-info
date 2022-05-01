@@ -47,7 +47,7 @@ function getDetails(id) {
     if (id) {
       dispatch({ type: "GET_MOVIES_REQUEST" });
       const detailMovieApi = await api.get(
-        `movie/${id}?api_key=${API_KEY}&language=ko-KR`
+        `/movie/${id}?api_key=${API_KEY}&language=ko-KR`
       );
 
       dispatch({
@@ -62,4 +62,23 @@ function getDetails(id) {
   };
 }
 
-export const movieAction = { getMovies, getDetails };
+function getSearchMovies(query) {
+  return async (dispatch) => {
+    dispatch({ type: "GET_MOVIES_REQUEST" }, { type: "SEARCH_INITIALIZE" });
+    const SearchMovieApi = await api.get(
+      `/search/movie?api_key=${API_KEY}&language=ko-KR&page=1&query=${query}`
+    );
+    if (query) {
+      dispatch({
+        type: "GET_SEARCH_SUCCESS",
+        payload: {
+          searchMovies: SearchMovieApi.data,
+        },
+      });
+    } else {
+      dispatch({ type: "GET_MOVIES_FAILURE" });
+    }
+  };
+}
+
+export const movieAction = { getMovies, getDetails, getSearchMovies };

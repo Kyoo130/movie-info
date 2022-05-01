@@ -19,7 +19,7 @@ const Home = () => {
   }, []);
 
   if (loading) {
-    return <Loading />;
+    return <Loading loading={loading} />;
   }
   return (
     <div>

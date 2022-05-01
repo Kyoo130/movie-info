@@ -5,7 +5,7 @@ import styled from "styled-components";
 const Header = () => {
   const [menu, setMenu] = useState([
     { id: 1, name: "홈", link: "/" },
-    { id: 2, name: "검색", link: "/movies" },
+    { id: 2, name: "검색", link: "/search" },
     { id: 3, name: "영화", link: "/movies" },
     { id: 4, name: "관심 콘텐츠", link: "/" },
   ]);
