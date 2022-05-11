@@ -8,7 +8,6 @@
 
 ### 💻 사용 기술
 + React
-+ react-bootstrap
 + react-router-dom
 + redux, react-Redux
 + redux-thunk
